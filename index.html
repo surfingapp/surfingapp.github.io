@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmeh9DiEPjeMFT3tLkf_d2WFX6EeO7dZ4&callback=initMap"></script>
     <title>Серф-приложение</title>
     <!-- Подключите здесь необходимые CSS и JavaScript файлы -->
 </head>
@@ -21,6 +22,7 @@
     <main>
         <section id="map">
             <!-- Здесь будет отображаться карта с текущим местоположением пользователя и ближайшими пляжами -->
+            <div id="map-container" style="width: 100%; height: 400px;"></div>
         </section>
         <section id="weather-info">
             <!-- Здесь будет отображаться подробная информация о погоде и ветре для выбранного пляжа -->
@@ -33,13 +35,11 @@
         <!-- Здесь можно добавить информацию о разработчиках и другие дополнительные ссылки -->
     </footer>
     <!-- Здесь подключите необходимые JavaScript-библиотеки и скрипты -->
+    <script src="main.js"></script>
 </body>
 </html>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 9d71eac477312cb9787ffd6ac093af8ad74dc875
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPM82Y6F63"></script>
 <script>
