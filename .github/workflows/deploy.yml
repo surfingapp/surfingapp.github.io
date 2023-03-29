@@ -25,9 +25,3 @@ jobs:
           # Замена YOUR_API_KEY на реальный ключ в файле main.js
           sed -i "s/YOUR_API_KEY/${API_KEY}/g" main.js
           # Выполните здесь дополнительные шаги сборки, если они необходимы
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Замените на путь к каталогу для публикации, если ваш проект имеет другую структуру
