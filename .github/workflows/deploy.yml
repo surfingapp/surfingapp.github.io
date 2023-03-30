@@ -35,6 +35,7 @@ jobs:
           API_KEY: ${{ secrets.GMAP_API_KEY }}
         run: |
           sed -i "s/YOUR_API_KEY/${API_KEY}/g" main.js
+          cp main.js _site/main.js
 
       - name: Check main.js content
         run: |
