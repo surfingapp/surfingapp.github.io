@@ -22,20 +22,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
       - name: Replace API key in main.js
         env:
           API_KEY: ${{ secrets.GMAP_API_KEY }}
         run: |
           sed -i "s/YOUR_API_KEY/${API_KEY}/g" main.js
-          cp main.js _site/main.js
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
 
       - name: Check main.js content
         run: |
