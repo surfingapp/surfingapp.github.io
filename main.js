@@ -1,7 +1,7 @@
 class SurfingMap {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.initMap();
+    this.loadScript();
   }
 
   initMap() {
@@ -14,7 +14,7 @@ class SurfingMap {
     const userMarker = new google.maps.Marker({
       position: center,
       map: map,
-      title: "Ваше местоположение",
+      title: "Your location",
     });
 
     // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
@@ -26,9 +26,9 @@ class SurfingMap {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
+    window.initMap = () => this.initMap();
   }
 }
 
 const apiKey = "YOUR_API_KEY";
 const surfingMap = new SurfingMap(apiKey);
-surfingMap.loadScript();
