@@ -35,7 +35,11 @@ jobs:
         with:
           source: ./
           destination: ./_site
-
+      - name: Build TinaCMS
+        env:
+          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        run: npx tinacms build
       - name: Check main.js content
         run: |
           cat main.js
