@@ -33,6 +33,8 @@ jobs:
           API_KEY: ${{ secrets.GMAP_API_KEY }}
         run: |
           sed -i "s/YOUR_API_KEY/${API_KEY}/g" main.js
+      - name: Install dependencies
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build TinaCMS
         env:
           TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
@@ -40,7 +42,7 @@ jobs:
         run: |
               sed -i "s/<your-tina-cloud-projects-client-id>/${TINA_PUBLIC_CLIENT_ID}/g" tina/config.js
               sed -i "s/<your-tina-cloud-projects-token>/${TINA_TOKEN}/g" tina/config.js
-              npx tinacms build
+              ${{ steps.detect-package-manager.outputs.runner }} tinacms build
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
