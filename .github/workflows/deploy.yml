@@ -37,7 +37,6 @@ jobs:
         run: |
               sed -i "s/<your-tina-cloud-projects-client-id>/${TINA_PUBLIC_CLIENT_ID}/g" tina/config.js
               sed -i "s/<your-tina-cloud-projects-token>/${TINA_TOKEN}/g" tina/config.js
-              npm install --save-dev @tinacms/cli
               npx tinacms build
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
