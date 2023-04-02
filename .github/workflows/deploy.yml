@@ -35,13 +35,13 @@ jobs:
         with:
           source: ./
           destination: ./_site
-      - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build TinaCMS
         env:
-          CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-        run: ${{ steps.detect-package-manager.outputs.runner }} tinacms build
+        run: |
+              npm install --save-dev @tinacms/cli
+              npx tinacms build
       - name: Check main.js content
         run: |
           cat main.js
