@@ -1,0 +1,5 @@
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:title/
+    source: content/posts

@@ -1,5 +1,7 @@
 ---
-title: 'Hello, World! Changed'
+layout: post
+title: "Hello World"
+date: 2023-03-27
 ---
 
 ## Hello World! Changed on git

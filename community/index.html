@@ -28,9 +28,10 @@
 
         <section class="blog">
             <h2>Development Blog</h2>
+            {% for post in site.posts %}
             <article class="blog-post">
-                <h3>Blog Post Title</h3>
-                <p>Blog post content...</p>
+                <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                <p>{{ post.excerpt }}</p>
             </article>
             <!-- Add more blog posts as needed -->
         </section>
