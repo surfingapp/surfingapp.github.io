@@ -52,6 +52,7 @@ jobs:
         with:
           source: ./
           destination: ./_site
+          config: ./_config.yml
       - name: Check main.js content
         run: |
           cat main.js
