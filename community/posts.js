@@ -1,25 +1,6 @@
-async function fetchPosts(folderPath) {
-  const response = await fetch(folderPath);
-  const text = await response.text();
-  const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(text, 'text/html');
-  const links = htmlDoc.querySelectorAll('a[href$=".html"]');
-  const posts = [];
-
-  for (const link of links) {
-    const postResponse = await fetch(`${folderPath}/${link.getAttribute('href')}`);
-    const postHtml = await postResponse.text();
-    const postDoc = parser.parseFromString(postHtml, 'text/html');
-    const postTitleElement = postDoc.querySelector('h2');
-    const postExcerptElement = postDoc.querySelector('p');
-
-    if (postTitleElement && postExcerptElement) {
-      const postTitle = postTitleElement.textContent;
-      const postExcerpt = postExcerptElement.textContent;
-      posts.push({ title: postTitle, excerpt: postExcerpt, link: `${folderPath}/${link.getAttribute('href')}` });
-    }
-  }
-
+async function fetchPosts(jsonPath) {
+  const response = await fetch(jsonPath);
+  const posts = await response.json();
   return posts;
 }
 
