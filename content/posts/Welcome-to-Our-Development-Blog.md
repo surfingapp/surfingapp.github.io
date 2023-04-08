@@ -2,7 +2,7 @@
 title: Welcome to Our Development Blog!
 ---
 
-# Welcome to Our Development Blog!
+## Welcome to Our Development Blog!
 
 We're excited to kick off our development blog for the Surfing Weather App! This blog will serve as a space to share updates, insights, and progress as we work on building a fantastic app for surfers, windsurfers, and kitesurfers alike.
 
