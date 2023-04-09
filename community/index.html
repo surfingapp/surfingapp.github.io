@@ -43,7 +43,8 @@
     </footer>
     <script src="./posts.js"></script>
     <script>
-      displayLatestPosts('#latest-posts-container', '../content/posts/posts.json', 3);
+        const blog = new Blog('../content/posts/posts.json');
+        blog.displayLatestPosts('#latest-posts-container', 3);
     </script>
 </body>
 </html>

@@ -21,7 +21,8 @@
     </footer>
     <script src="./posts.js"></script>
     <script>
-      displayAllPosts('#all-posts-container', '../content/posts/posts.json');
+        const blog = new Blog('../content/posts/posts.json');
+        blog.displayAllPosts('#all-posts-container');
     </script>
 </body>
 </html>
