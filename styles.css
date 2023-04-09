@@ -25,6 +25,12 @@ main {
     padding: 2rem;
 }
 
+.post-preview img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0.5rem auto;
+}
 .community-page-intro {
     margin-bottom: 2rem;
 }
