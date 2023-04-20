@@ -15,7 +15,7 @@ class Blog {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    const title = doc.querySelector('h2').textContent;
+    const title = doc.querySelector('h1').textContent;
     const image = doc.querySelector('img');
     const imageUrl = image ? image.src : null;
     const content = Array.from(doc.querySelectorAll('p')).map((p) => p.textContent);

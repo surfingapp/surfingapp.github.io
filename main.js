@@ -5,7 +5,12 @@ class SurfingMap {
   }
 
   async initMap() {
-    const center = { lat: -34.397, lng: 150.644 };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+      const center = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
     const map = new google.maps.Map(document.getElementById("map-container"), {
       zoom: 10,
       center: center,
