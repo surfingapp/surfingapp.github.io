@@ -5,29 +5,34 @@ class SurfingMap {
   }
 
   async initMap() {
-    if (navigator.geolocation) {
+  if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-      const center = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
-    const map = new google.maps.Map(document.getElementById("map-container"), {
-      zoom: 10,
-      center: center,
-    });
+        const center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const map = new google.maps.Map(document.getElementById("map-container"), {
+          zoom: 10,
+          center: center,
+        });
 
-    const userMarker = new google.maps.Marker({
-      position: center,
-      map: map,
-      title: "Your location",
-    });
+        const userMarker = new google.maps.Marker({
+          position: center,
+          map: map,
+          title: "Your location",
+        });
 
-    const weatherInfo = await weatherData.fetchWeatherData(center.lat, center.lng);
-    console.log(weatherInfo);
+        const weatherInfo = await weatherData.fetchWeatherData(center.lat, center.lng);
+        console.log(weatherInfo);
 
-    weatherData.updateWeatherInfo(weatherInfo);
-    // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
+        weatherData.updateWeatherInfo(weatherInfo);
+        // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
+      });
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   }
+
 
   loadScript() {
     const script = document.createElement("script");
