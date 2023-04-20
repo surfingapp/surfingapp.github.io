@@ -5,33 +5,36 @@ class SurfingMap {
   }
 
   async initMap() {
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const map = new google.maps.Map(document.getElementById("map-container"), {
-          zoom: 10,
-          center: center,
-        });
-
-        const userMarker = new google.maps.Marker({
-          position: center,
-          map: map,
-          title: "Your location",
-        });
-
-        const weatherInfo = await weatherData.fetchWeatherData(center.lat, center.lng);
-        console.log(weatherInfo);
-
-        weatherData.updateWeatherInfo(weatherInfo);
-        // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
+  let center = { lat: 40.712776, lng: -74.005974 }; // Локация по умолчанию (Нью-Йорк)
+  
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+    center = { lat: position.coords.latitude, lng: position.coords.longitude };
+  } catch (error) {
+    console.log(error);
+    console.log("Failed to get user location. Using default location instead.");
   }
+  
+  const map = new google.maps.Map(document.getElementById("map-container"), {
+    zoom: 10,
+    center: center,
+  });
+
+  const userMarker = new google.maps.Marker({
+    position: center,
+    map: map,
+    title: "Your location",
+  });
+
+  const weatherInfo = await weatherData.fetchWeatherData(center.lat, center.lng);
+  console.log(weatherInfo);
+
+  weatherData.updateWeatherInfo(weatherInfo);
+  // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
+}
+
 
 
   loadScript() {
