@@ -5,13 +5,27 @@ class WeatherData {
   }
 
   async fetchWeatherData(lat, lon) {
-    const response = await fetch(`${this.baseUrl}current?lat=${lat}&lon=${lon}&key=${this.apiKey}&units=M`);
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch(`${this.baseUrl}current?lat=${lat}&lon=${lon}&key=${this.apiKey}&units=M`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch weather data');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      return null;
+    }
   }
 
   updateWeatherInfo(weatherData) {
     const weatherInfoElement = document.getElementById('weather-info');
+
+    if (!weatherData) {
+      weatherInfoElement.innerHTML = '<p>Unable to load weather data.</p>';
+      return;
+    }
+
     const currentWeather = weatherData.data[0];
     const htmlContent = `
       <h2>Current Weather</h2>

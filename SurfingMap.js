@@ -1,37 +1,20 @@
 class SurfingMap {
-  constructor(apiKey) {
+  constructor(apiKey, handleLocationCallback) {
     this.apiKey = apiKey;
+    this.handleLocation = handleLocationCallback;
     this.loadScript();
   }
 
   async initMap() {
     const defaultLocation = { lat: -34.397, lng: 150.644 };
-    const map = new google.maps.Map(document.getElementById("map-container"), {
+    this.map = new google.maps.Map(document.getElementById("map-container"), {
       zoom: 10,
       center: defaultLocation,
     });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          map.setCenter(center);
-
-          const userMarker = new google.maps.Marker({
-            position: center,
-            map: map,
-            title: "Your location",
-          });
-
-          const weatherInfo = await weatherData.fetchWeatherData(center.lat, center.lng);
-          console.log(weatherInfo);
-
-          weatherData.updateWeatherInfo(weatherInfo);
-          // Здесь можно добавить маркеры для ближайших пляжей с помощью цикла или других методов
-        },
+        this.handleLocation,
         (error) => {
           console.log(error);
           console.log("Geolocation permission denied, using default location");
@@ -41,6 +24,18 @@ class SurfingMap {
     } else {
       console.log("Geolocation not supported, using default location");
     }
+  }
+
+  setCenter(center) {
+    this.map.setCenter(center);
+  }
+
+  addUserMarker(center) {
+    const userMarker = new google.maps.Marker({
+      position: center,
+      map: this.map,
+      title: "Your location",
+    });
   }
 
   loadScript() {
