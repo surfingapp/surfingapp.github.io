@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Hello World"
-date: 2023-03-27
+title: Hello World
+date: '2023-03-27T00:00:00.000Z'
 ---
 
-## Hello World! Changed on git
+# Hello World! Changed on git
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non lorem diam. Quisque vulputate nibh sodales eros pretium tincidunt. Aenean porttitor efficitur convallis. Nulla sagittis finibus convallis. Phasellus in fermentum quam, eu egestas tortor. Maecenas ac mollis leo. Integer maximus eu nisl vel sagittis.
 
