@@ -1,9 +1,35 @@
+import EventManager from './EventManager.js';
+
 class SurfingMap {
-  constructor(apiKey, handleLocationCallback) {
+  constructor(apiKey, weatherData, handleLocationCallback) {
     this.apiKey = apiKey;
+    this.weatherData = weatherData;
     this.bbox = [-10.5, -175.5, 22, -154];
     this.handleLocation = handleLocationCallback;
     this.loadScript();
+  }
+
+  async initMap() {
+    const defaultLocation = { lat: -34.397, lng: 150.644 };
+
+    try {
+      const position = await this.getUserLocation();
+      const { latitude, longitude } = position.coords;
+      this.handleLocation(position);
+      this.updateBbox(latitude, longitude);
+    } catch {
+      const { lat, lng } = defaultLocation;
+      this.updateBbox(lat, lng);
+    }
+
+    this.map = new google.maps.Map(document.getElementById("map-container"), {
+      zoom: 10,
+      center: defaultLocation,
+    });
+
+    this.eventManager = new EventManager(this, this.weatherData);
+
+    this.addBeachMarkers(await this.fetchBeaches());
   }
 
   async fetchBeaches() {
@@ -39,29 +65,6 @@ class SurfingMap {
     }
   }
 
-  async initMap() {
-    const defaultLocation = { lat: -34.397, lng: 150.644 };
-
-    try {
-      const position = await this.getUserLocation();
-      const { latitude, longitude } = position.coords;
-      this.handleLocation(position);
-      this.updateBbox(latitude, longitude);
-    } catch {
-      const { lat, lng } = defaultLocation;
-      this.updateBbox(lat, lng);
-    }
-
-    this.map = new google.maps.Map(document.getElementById("map-container"), {
-      zoom: 10,
-      center: defaultLocation,
-    });
-
-    this.addBeachMarkers(await this.fetchBeaches());
-  }
-
-
-
   getUserLocation() {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -96,7 +99,6 @@ class SurfingMap {
 
   updateBbox(lat, lng, range = 1) {
     this.bbox = [lat - range, lng - range, lat + range, lng + range];
-    console.log(this.bbox)
   }
 
 
@@ -116,14 +118,27 @@ class SurfingMap {
         map: this.map,
         title: beach.name,
         icon: {
-          url: 'https://cdn-icons-png.flaticon.com/512/430/430788.png ',
-          scaledSize: new google.maps.Size(50, 50)
-        }
+          url: 'https://cdn-icons-png.flaticon.com/512/430/430788.png',
+          scaledSize: new google.maps.Size(40, 40),
+        },
       });
 
-      console.log(`Beach name: ${beach.name}, lat: ${beach.lat}, lng: ${beach.lon}`);
+      // Use EventManager to handle beach marker clicks
+      this.eventManager.handleBeachMarkerClick(beachMarker, (marker, isActive) => {
+        this.setBeachMarkerSize(marker, isActive);
+      });
     }
   }
+
+  setBeachMarkerSize(marker, isActive) {
+    const size = isActive ? 60 : 40;
+    marker.setIcon({
+      url: 'https://cdn-icons-png.flaticon.com/512/430/430788.png',
+      scaledSize: new google.maps.Size(size, size),
+    });
+  }
+
+
 
 
 }
