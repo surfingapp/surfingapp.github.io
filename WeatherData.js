@@ -1,9 +1,22 @@
+/**
+ * Class representing weather data fetched from Weatherbit API.
+ */
 class WeatherData {
+  /**
+   * Create a new WeatherData instance.
+   * @param {string} apiKey - The Weatherbit API key.
+   */
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.baseUrl = 'https://api.weatherbit.io/v2.0/';
   }
 
+  /**
+   * Fetch weather data for the given coordinates.
+   * @param {number} lat - The latitude of the location.
+   * @param {number} lon - The longitude of the location.
+   * @returns {Promise<Object|null>} A promise that resolves to the weather data or null if an error occurs.
+   */
   async fetchWeatherData(lat, lon) {
     try {
       const response = await fetch(`${this.baseUrl}current?lat=${lat}&lon=${lon}&key=${this.apiKey}&units=M`);
@@ -18,6 +31,10 @@ class WeatherData {
     }
   }
 
+  /**
+   * Update the weather info displayed on the page.
+   * @param {Object|null} weatherData - The weather data to display or null if an error occurred.
+   */
   updateWeatherInfo(weatherData) {
     const weatherInfoElement = document.getElementById('weather-info');
 

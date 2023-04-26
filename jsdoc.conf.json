@@ -1,0 +1,14 @@
+{
+  "source": {
+    "include": ["./"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)(_site|node_modules)"
+  },
+  "opts": {
+    "destination": "docs/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "templates/default"
+  }
+}
