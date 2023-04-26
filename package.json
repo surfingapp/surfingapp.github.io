@@ -21,6 +21,8 @@
   "dependencies": {
     "@tinacms/cli": "^1.5.1",
     "tinacms": "^1.4.2"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
   }
-
 }

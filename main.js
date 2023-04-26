@@ -8,7 +8,7 @@ const weatherApiKey = 'd75789f86f524212a00862d3c5ea744e';
  * Creates a new WeatherData instance with the given API key.
  * @type {WeatherData}
  */
-const weatherData = new WeatherData(weatherApiKey);
+const weatherData = new WeatherData();
 
 // The API key for the Google Maps service
 const apiKey = "AIzaSyAmeh9DiEPjeMFT3tLkf_d2WFX6EeO7dZ4";

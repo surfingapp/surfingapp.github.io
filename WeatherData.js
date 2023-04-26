@@ -1,14 +1,12 @@
 /**
- * Class representing weather data fetched from Weatherbit API.
+ * Class representing weather data fetched from Open-Meteo API.
  */
 class WeatherData {
   /**
    * Create a new WeatherData instance.
-   * @param {string} apiKey - The Weatherbit API key.
    */
-  constructor(apiKey) {
-    this.apiKey = apiKey;
-    this.baseUrl = 'https://api.weatherbit.io/v2.0/';
+  constructor() {
+    this.baseUrl = "https://api.open-meteo.com/v1/forecast";
   }
 
   /**
@@ -19,39 +17,41 @@ class WeatherData {
    */
   async fetchWeatherData(lat, lon) {
     try {
-      const response = await fetch(`${this.baseUrl}current?lat=${lat}&lon=${lon}&key=${this.apiKey}&units=M`);
+      const response = await fetch(
+        `${this.baseUrl}?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch weather data');
+        throw new Error("Failed to fetch weather data");
       }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error fetching weather data:', error);
+      console.error("Error fetching weather data:", error);
       return null;
     }
   }
 
   /**
-   * Update the weather info displayed on the page.
+   * Update the weather information displayed on the page.
    * @param {Object|null} weatherData - The weather data to display or null if an error occurred.
    */
   updateWeatherInfo(weatherData) {
-    const weatherInfoElement = document.getElementById('weather-info');
-
-    if (!weatherData) {
-      weatherInfoElement.innerHTML = '<p>Unable to load weather data.</p>';
+    const weatherInfoElement = document.getElementById("weather-info");
+    if (!weatherData || !weatherData.current_weather) {
+      weatherInfoElement.innerHTML = "<p>Unable to load weather data.</p>";
       return;
     }
 
-    const currentWeather = weatherData.data[0];
+    const currentWeather = weatherData.current_weather;
     const htmlContent = `
       <h2>Current Weather</h2>
-      <p>Temperature: ${currentWeather.temp}°C</p>
-      <p>Wind Speed: ${currentWeather.wind_spd} m/s</p>
-      <p>Wind Direction: ${currentWeather.wind_dir}°</p>
+      <p>Temperature: ${currentWeather.temperature}°C</p>
+      <p>Wind Speed: ${currentWeather.windspeed} m/s</p>
+      <p>Wind Direction: ${currentWeather.winddirection}°</p>
     `;
     weatherInfoElement.innerHTML = htmlContent;
   }
+
 }
 
 export default WeatherData;
