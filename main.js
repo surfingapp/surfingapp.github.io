@@ -1,17 +1,14 @@
 import SurfingMap from './SurfingMap.js';
 import WeatherData from './WeatherData.js';
 
-// The API key for the weather service
-const weatherApiKey = 'd75789f86f524212a00862d3c5ea744e';
-
 /**
- * Creates a new WeatherData instance with the given API key.
+ * Creates a new WeatherData instance.
  * @type {WeatherData}
  */
 const weatherData = new WeatherData();
 
 // The API key for the Google Maps service
-const apiKey = "AIzaSyAmeh9DiEPjeMFT3tLkf_d2WFX6EeO7dZ4";
+const apiKey = "GMAP_API_KEY";
 
 /**
  * Creates a new SurfingMap instance with the given API key, WeatherData instance, and location handling function.

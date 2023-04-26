@@ -43,14 +43,26 @@ class WeatherData {
     }
 
     const currentWeather = weatherData.current_weather;
+    const windDirection = currentWeather.winddirection;
+
+    // Создаем SVG-стрелку с нужным поворотом
+    const windArrow = `<svg width="30" height="30" viewBox="0 0 24 24">
+      <g transform="rotate(${windDirection - 90}, 12, 12)">
+        <path d="M12 2L12 22" stroke="black" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 2L10 6" stroke="black" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 2L14 6" stroke="black" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </svg>`;
+
     const htmlContent = `
       <h2>Current Weather</h2>
       <p>Temperature: ${currentWeather.temperature}°C</p>
       <p>Wind Speed: ${currentWeather.windspeed} m/s</p>
-      <p>Wind Direction: ${currentWeather.winddirection}°</p>
+      <p>Wind Direction: ${windArrow} (${windDirection}°)</p>
     `;
     weatherInfoElement.innerHTML = htmlContent;
   }
+
 
 }
 
