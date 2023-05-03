@@ -85,8 +85,6 @@ class SurfingMap {
           uniqueBeaches.push({ ...element, lat, lon });
         }
       });
-
-      console.log("Unique beach elements:", uniqueBeaches);
       return uniqueBeaches;
     } catch (error) {
       console.error(error);
@@ -178,7 +176,7 @@ class SurfingMap {
    * @param {number} [range=1] - The range to extend the bounding box from the center.
    */
   updateBbox(lat, lng, range = 1) {
-    this.bbox = [lat - range, lng - range*40, lat + range, lng + range*40];
+    this.bbox = [lat - range, lng - range, lat + range, lng + range];
   }
 
   /**
@@ -199,14 +197,21 @@ class SurfingMap {
    */
   async addBeachMarkers(beaches) {
     for (const beach of beaches) {
+      const isSurfBeach = beach.tags && beach.tags.sport === 'surf';
+
+      const icon = {
+        url: isSurfBeach
+          ? 'https://cdn-icons-png.flaticon.com/512/3145/3145018.png'
+          : 'https://cdn-icons-png.flaticon.com/512/2664/2664593.png',
+        scaledSize: new google.maps.Size(40, 40),
+      };
+
       const beachMarker = new google.maps.Marker({
         position: { lat: parseFloat(beach.lat), lng: parseFloat(beach.lon) },
         map: this.map,
         title: beach.name,
-        icon: {
-          url: 'https://cdn-icons-png.flaticon.com/512/430/430788.png',
-          scaledSize: new google.maps.Size(40, 40),
-        },
+        icon: icon,
+        customIcon: icon, // Save the icon for later use
       });
 
       // Use EventManager to handle beach marker clicks
@@ -216,6 +221,7 @@ class SurfingMap {
     }
   }
 
+
   /**
    * Set the size of a beach marker.
    * @param {google.maps.Marker} marker - The marker to resize.
@@ -224,7 +230,7 @@ class SurfingMap {
   setBeachMarkerSize(marker, isActive) {
     const size = isActive ? 60 : 40;
     marker.setIcon({
-      url: 'https://cdn-icons-png.flaticon.com/512/430/430788.png',
+      ...marker.customIcon, // Use the saved custom icon
       scaledSize: new google.maps.Size(size, size),
     });
   }
