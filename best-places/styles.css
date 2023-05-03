@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+main {
+    padding: 2rem;
+}
+
+.coming-soon {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.notify-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.notify-form input[type="email"] {
+    padding: 0.5rem;
+    width: 70%;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.notify-form button {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.notify-form button:hover {
+    background-color: #3e8e41;
+}

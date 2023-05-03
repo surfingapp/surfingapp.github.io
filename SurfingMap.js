@@ -197,7 +197,7 @@ class SurfingMap {
    */
   async addBeachMarkers(beaches) {
     for (const beach of beaches) {
-      const isSurfBeach = beach.tags && beach.tags.sport === 'surf';
+      const isSurfBeach = beach.tags && beach.tags.sport === 'surfing';
 
       const icon = {
         url: isSurfBeach
