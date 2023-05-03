@@ -40,13 +40,19 @@ class EventManager {
       const lat = marker.getPosition().lat();
       const lng = marker.getPosition().lng();
       const weatherData = await this.weatherData.fetchWeatherData(lat, lng);
-      this.weatherData.updateWeatherInfo(weatherData);
 
       const travelTime = await this.surfingMap.fetchTravelTime(
         this.surfingMap.userMarker.getPosition(),
         marker.getPosition()
       );
-      console.log('Travel time (in seconds):', travelTime);
+
+      const currentTime = Math.floor(Date.now() / 1000);
+      const arrivalTime = currentTime + travelTime;
+
+      const arrivalHourIndex = Math.round(travelTime / 3600); // 3600 секунд в часе
+      const arrivalWeatherData = await this.weatherData.fetchArrivalWeatherData(lat, lng, arrivalHourIndex);
+
+      this.weatherData.updateWeatherInfo(weatherData, arrivalWeatherData);
     });
   }
 }

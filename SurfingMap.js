@@ -51,12 +51,12 @@ class SurfingMap {
   async fetchBeaches() {
     const overpassApiUrl = 'https://overpass-api.de/api/interpreter';
     const overpassQuery = `
-      [out:json];
+      [out:json][maxsize:5242880][timeout:180];
       (
         node["natural"="beach"](${this.bbox.join(",")});
         way["natural"="beach"](${this.bbox.join(",")});
-        relation["natural"="beach"](${this.bbox.join(",")});
       );
+      (._;>;);
       out center;
     `;
 
@@ -74,12 +74,28 @@ class SurfingMap {
       }
 
       const data = await response.json();
-      return data.elements;
+      const uniqueBeaches = [];
+
+      data.elements.forEach((element) => {
+        if (element.type === "node" && element.tags && element.tags.natural === "beach") {
+          uniqueBeaches.push(element);
+        } else if (element.type === "way" || element.type === "center") {
+          const lat = element.center ? element.center.lat : element.lat;
+          const lon = element.center ? element.center.lon : element.lon;
+          uniqueBeaches.push({ ...element, lat, lon });
+        }
+      });
+
+      console.log("Unique beach elements:", uniqueBeaches);
+      return uniqueBeaches;
     } catch (error) {
       console.error(error);
       return [];
     }
   }
+
+
+
 
   /**
    * Fetch travel time between origin and destination using Google Maps API.
@@ -162,7 +178,7 @@ class SurfingMap {
    * @param {number} [range=1] - The range to extend the bounding box from the center.
    */
   updateBbox(lat, lng, range = 1) {
-    this.bbox = [lat - range, lng - range, lat + range, lng + range];
+    this.bbox = [lat - range, lng - range*40, lat + range, lng + range*40];
   }
 
   /**

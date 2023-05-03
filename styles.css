@@ -1,15 +1,3 @@
-/* Reset some default styles */
-body, h1, h2, h3, p {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-}
-
 header {
     background-color: #333;
     color: #ffffff;
@@ -21,66 +9,33 @@ header a {
     text-decoration: none;
 }
 
-main {
-    padding: 2rem;
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
-.post-preview img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0.5rem auto;
-}
-.community-page-intro {
-    margin-bottom: 2rem;
+nav li {
+    margin: 0;
+    padding: 0;
+    margin-right: 1rem;
 }
 
-.community-page-intro h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+nav li:last-child {
+    margin-right: 0;
 }
 
-.blog {
-    margin-bottom: 2rem;
-}
-
-.blog h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.blog-post {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    padding: 1rem;
-}
-
-.blog-post h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.coming-soon {
-    margin-bottom: 2rem;
-}
-
-.coming-soon h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-footer {
-    background-color: #333;
+nav a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
     color: #ffffff;
-    text-align: center;
-    padding: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
-@media screen and (min-width: 768px) {
-    main {
-        width: 70%;
-        margin: 0 auto;
-    }
+nav a:hover {
+    background-color: #3e8e41;
 }
