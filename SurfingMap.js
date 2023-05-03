@@ -197,14 +197,29 @@ class SurfingMap {
    */
   async addBeachMarkers(beaches) {
     for (const beach of beaches) {
-      const isSurfBeach = beach.tags && beach.tags.sport === 'surfing';
+      const sport = beach.tags && beach.tags.sport;
 
-      const icon = {
-        url: isSurfBeach
-          ? 'https://cdn-icons-png.flaticon.com/512/3145/3145018.png'
-          : 'https://cdn-icons-png.flaticon.com/512/2664/2664593.png',
-        scaledSize: new google.maps.Size(40, 40),
-      };
+      let icon;
+      switch (sport) {
+        case 'surfing':
+          icon = {
+            url: 'https://cdn-icons-png.flaticon.com/512/3145/3145018.png',
+            scaledSize: new google.maps.Size(40, 40),
+          };
+          break;
+        case 'windsurfing':
+          icon = {
+            url: 'https://cdn-icons-png.flaticon.com/512/3145/3145019.png',
+            scaledSize: new google.maps.Size(40, 40),
+          };
+          break;
+        default:
+          icon = {
+            url: 'https://cdn-icons-png.flaticon.com/512/2664/2664593.png',
+            scaledSize: new google.maps.Size(40, 40),
+          };
+          break;
+      }
 
       const beachMarker = new google.maps.Marker({
         position: { lat: parseFloat(beach.lat), lng: parseFloat(beach.lon) },
@@ -220,6 +235,7 @@ class SurfingMap {
       });
     }
   }
+
 
 
   /**
